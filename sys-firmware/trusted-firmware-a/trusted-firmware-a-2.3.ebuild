@@ -19,7 +19,8 @@ done
 IUSE="${IUSE_ARM_PLATFORM}"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!sys-firmware/trusted-firmware-a-bin"
 BDEPEND=""
 
 src_compile() {
