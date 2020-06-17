@@ -5,7 +5,6 @@ EAPI=7
 MY_PV=$(ver_rs 2 -)
 MY_P="${PN}-v${MY_PV}"
 
-
 inherit savedconfig
 
 DESCRIPTION="An open source firmware and bootloader for POWER, ARM, MIPS, x86 and others"
@@ -26,6 +25,7 @@ DEPEND="
 	build-tfa? ( sys-firmware/trusted-firmware-a:= )"
 RDEPEND="${DEPEND}"
 BDEPEND=""
+S="${WORKDIR}/${MY_P}"
 
 src_configure() {
 	emake ${U_BOOT_CONFIG} || die
@@ -86,7 +86,7 @@ pkg_postinst() {
 	case ${U_BOOT_CONFIG} in
 		rock64-rk3328_defconfig)
 			;;
-		rockpro64-rk3399_defconfig)
+		rockpro64-rk3399_defconfig|pinebook-pro-rk3399_defconfig)
 			elog "dd if=/usr/share/u-boot/idbloader.img of=/dev/... seek=64 conv=notrunc"
 			elog "dd if=/usr/share/u-boot/u-boot.itb of=/dev/... seek=16384 conv=notrunc"
 			elog "where /dev/... can either be the SD or eMMC"
