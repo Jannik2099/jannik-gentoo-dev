@@ -76,7 +76,8 @@ src_install() {
 
 	case ${U_BOOT_CONFIG} in
 		qemu_arm64_defconfig)
-			# no idea which one of those are necessary, let's just give em all for now
+			# Only u-boot.bin *should* be necessary, others helpful for debug?
+			# Perhaps debug useflag if other targets also build symbols, maps etc.
 			doins u-boot
 			doins u-boot.bin
 			doins u-boot.lds
@@ -109,6 +110,7 @@ pkg_postinst() {
 		case ${U_BOOT_CONFIG} in
 			qemu_arm64_defconfig)
 				# Documentation on this on the wiki would be helpful, TBD
+				elog "point qemu bios at u-boot.bin : qemu-system-aarch64 -bios /usr/share/u-boot/u-boot.bin"
 				;;
 			rock64-rk3328_defconfig)
 				;;
